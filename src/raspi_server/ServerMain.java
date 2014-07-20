@@ -3,7 +3,7 @@ package raspi_server;
 public class ServerMain {
 	
 	public static void main(String[] args) {
-		Server server = new Server();
+		Server server = new Server(51296);
 	}
 
 }
