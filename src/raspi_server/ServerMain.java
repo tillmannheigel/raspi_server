@@ -10,7 +10,7 @@ public class ServerMain {
 		try {
 			ServerSocket socket = new ServerSocket();
 			socket.setReuseAddress(true);
-			socket.bind(new InetSocketAddress(52396));
+			socket.bind(new InetSocketAddress(51396));
 			Server server = new Server(socket);
 			Thread serverThread = new Thread(server);
 			serverThread.start();

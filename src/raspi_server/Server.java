@@ -6,27 +6,32 @@ import java.net.Socket;
 
 public class Server implements Runnable{
 	
-	private ServerSocket mySocket;
-	private Socket myClient;
+	private ServerSocket serverSocket;
+	private Socket clientSocket;
 
 	public Server(ServerSocket socket) {
-		mySocket = socket;
+		serverSocket = socket;
 	}
 
 	@Override
 	public void run() {
-		System.out.println("++Startet new Server on port " + mySocket.getLocalPort() + ".++");
+		System.out.println("++Startet new Server on port " + serverSocket.getLocalPort() + ".++");
 		while (true) {
-			System.out.println("while");
+			System.out.println("waiting for incomming connections...");
 			try {
-				myClient = mySocket.accept();
-				System.out.println(myClient.toString());
+				clientSocket = serverSocket.accept();
+				this.sendCurrentStatus();
+				System.out.println(clientSocket.toString());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				System.out.println("Stopped Server");
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private void sendCurrentStatus() {
+		RequestThread requestThread = new RequestThread(clientSocket);
+		requestThread.start();
 	}
 	
 }
