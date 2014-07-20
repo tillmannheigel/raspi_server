@@ -8,18 +8,17 @@ public class Server implements Runnable{
 	
 	private ServerSocket mySocket;
 	private Socket myClient;
-	private int myPort;
 
-	public Server(int port) {
-		myPort = port;
+	public Server(ServerSocket socket) {
+		mySocket = socket;
 	}
 
 	@Override
 	public void run() {
-		System.out.println("Startet new Server on port " + myPort + ".");
+		System.out.println("++Startet new Server on port " + mySocket.getLocalPort() + ".++");
 		while (true) {
+			System.out.println("while");
 			try {
-				mySocket = new ServerSocket(myPort);
 				myClient = mySocket.accept();
 				System.out.println(myClient.toString());
 			} catch (IOException e) {
