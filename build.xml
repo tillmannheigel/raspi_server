@@ -1,0 +1,16 @@
+<project>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"/>
+    </target>
+	
+    <target name="run">
+        <java classname="build/classes/raspi_server/ServerMain" fork="true"/>
+    </target>
+
+</project>
