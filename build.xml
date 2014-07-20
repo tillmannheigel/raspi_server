@@ -1,5 +1,5 @@
 <project>
-
+	
     <target name="clean">
         <delete dir="build"/>
     </target>
@@ -10,7 +10,11 @@
     </target>
 	
     <target name="run">
-        <java classname="build/classes/raspi_server/ServerMain" fork="true"/>
+        <java classname="raspi_server/ServerMain" fork="true">
+    	 <classpath>
+    	            <path location="build/classes"/>
+    	 </classpath>
+        </java>
     </target>
 
 </project>

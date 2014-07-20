@@ -10,12 +10,15 @@ public class Server {
 	private Socket myClient;
 
 	Server(int port){
+		System.out.println("Startet new Server on port " + port + ".");
+
 		try {
 			mySocket = new ServerSocket(port);
 			myClient = mySocket.accept();
 			System.out.println(myClient.toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println("Stopped Server");
 			e.printStackTrace();
 		}
 	}
