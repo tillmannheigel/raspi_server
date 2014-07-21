@@ -21,8 +21,7 @@ public class Server implements Runnable{
 		while (true) {
 			try {
 				clientSocket = serverSocket.accept();
-				this.sendCurrentStatus();
-				System.out.println(clientSocket.toString());
+				this.connect();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -30,7 +29,7 @@ public class Server implements Runnable{
 		}
 	}
 
-	private void sendCurrentStatus() {
+	private void connect() {
 		RequestThread requestThread = new RequestThread(clientSocket);
 		requestThread.start();
 	}

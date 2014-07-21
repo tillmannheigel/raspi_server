@@ -17,15 +17,18 @@ public class RequestThread extends Thread {
 	@Override
 	public void run() {
 		
-		System.out.println("RequestThread für Port "+clientSocket.getLocalPort()+" läuft.");
+		System.out.println("Verbindung aufgebaut "+clientSocket.getRemoteSocketAddress() +".");
 		try {
 			PrintWriter out = new PrintWriter (clientSocket.getOutputStream(), true);
 			out.println("Guten Tag");
 			 BufferedReader bufferedReader = new BufferedReader(
 				          new InputStreamReader(
 				            clientSocket.getInputStream()));
-			
-			 System.out.println("Nachricht empfangen");
+		     char[] buffer = new char[100];
+		     int anzahlZeichen = bufferedReader.read(buffer, 0, 100); 
+			 if (anzahlZeichen>0) {
+			     System.out.println("Nachricht empfangen. Länge: " +anzahlZeichen+".");
+			 }
 			 clientSocket.close();
 			
 		} catch (IOException e) {
