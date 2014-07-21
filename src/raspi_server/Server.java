@@ -16,8 +16,9 @@ public class Server implements Runnable{
 	@Override
 	public void run() {
 		System.out.println("++Startet new Server on port " + serverSocket.getLocalPort() + ".++");
+		System.out.println("waiting for incomming connections...");
+		System.out.println("Clients:");
 		while (true) {
-			System.out.println("waiting for incomming connections...");
 			try {
 				clientSocket = serverSocket.accept();
 				this.sendCurrentStatus();
