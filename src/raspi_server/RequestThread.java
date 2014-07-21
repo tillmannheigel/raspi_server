@@ -18,7 +18,7 @@ public class RequestThread extends Thread {
 		
 		try {
 			PrintWriter out = new PrintWriter (clientSocket.getOutputStream(), true);
-			out.write("Guten Tag");
+			out.println("Guten Tag");
 			clientSocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
