@@ -9,9 +9,11 @@ import java.net.Socket;
 public class RequestThread extends Thread {
 	
 	private Socket clientSocket;
+	private Client client;
 
 	public RequestThread(Socket socket) {
 		clientSocket = socket;
+		client = new Client();
 	}
 
 	@Override
@@ -19,17 +21,28 @@ public class RequestThread extends Thread {
 		
 		System.out.println("Verbindung aufgebaut "+clientSocket.getRemoteSocketAddress() +".");
 		try {
-			PrintWriter out = new PrintWriter (clientSocket.getOutputStream(), true);
-			out.println("Guten Tag");
+			while (true) {
+			 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true );
+
 			 BufferedReader bufferedReader = new BufferedReader(
 				          new InputStreamReader(
 				            clientSocket.getInputStream()));
-		     char[] buffer = new char[100];
-		     int anzahlZeichen = bufferedReader.read(buffer, 0, 100); 
+		     char[] buffer = new char[1024];
+		     int anzahlZeichen = bufferedReader.read(buffer, 0, 1024); 
+		     String[] werte = new String(buffer).split("\\:"); 
 			 if (anzahlZeichen>0) {
-			     System.out.println("Nachricht empfangen. Länge: " +anzahlZeichen+".");
+				 switch (werte[0]) {
+				case "name":
+					client.setName(werte[1]);
+					System.out.println("new Client: "+werte[1]);
+					out.write("Hello: " +werte[1]);
+					break;
+
+				default:
+					break;
+				}
 			 }
-			 clientSocket.close();
+			}
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
