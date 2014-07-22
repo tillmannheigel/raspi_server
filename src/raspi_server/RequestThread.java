@@ -23,7 +23,6 @@ public class RequestThread extends Thread {
 		try {
 			while (true) {
 			 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true );
-
 			 BufferedReader bufferedReader = new BufferedReader(
 				          new InputStreamReader(
 				            clientSocket.getInputStream()));
@@ -35,10 +34,12 @@ public class RequestThread extends Thread {
 				case "name":
 					client.setName(werte[1]);
 					System.out.println("new Client: "+werte[1]);
-					out.write("Hello: " +werte[1]);
+					out.println("hi:"+werte[1]);
 					break;
 
 				default:
+					out.println("stop:no_data_bug");
+					clientSocket.close();
 					break;
 				}
 			 }
